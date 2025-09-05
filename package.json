@@ -1,0 +1,25 @@
+{
+  "name": "zyra_backend",
+  "version": "1.0.0",
+  "description": "Backend for 3D printed goods selling marketplace app",
+  "keywords": [
+    "\"Backend\"",
+    "\"API\""
+  ],
+  "homepage": "https://github.com/RockstarGangu/zyra_api#readme",
+  "bugs": {
+    "url": "https://github.com/RockstarGangu/zyra_api/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RockstarGangu/zyra_api.git"
+  },
+  "license": "ISC",
+  "author": "Gangayya M I",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/index.js"
+  }
+}
