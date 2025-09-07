@@ -14,6 +14,23 @@ app.use(
 app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 app.use(express.static("public"));
-app.use(cookieParser())
+app.use(cookieParser());
+
+//import all routes
+import addressRouter from "./routes/address.routes.js";
+import categoryRouter from "./routes/category.routes.js";
+import orderRouter from "./routes/order.routes.js";
+import productRouter from "./routes/product.routes.js";
+import reviewRouter from "./routes/review.routes.js";
+import userRouter from "./routes/user.routes.js";
+import vendorRouter from "./routes/vendor.routes.js";
+
+app.use("/api/v1/address", addressRouter);
+app.use("/api/v1/category", categoryRouter);
+app.use("/api/v1/order", orderRouter);
+app.use("/api/v1/product", productRouter);
+app.use("/api/v1/review", reviewRouter);
+app.use("/api/v1/user", userRouter);
+app.use("/api/v1/vendor", vendorRouter);
 
 export { app };
