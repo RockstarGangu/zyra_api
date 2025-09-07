@@ -1,10 +1,8 @@
 import User from "../models/user.model.js";
 import Product from "../models/product.model.js";
+import Twilio from "twilio";
 
-const client = require("twilio")(
-  process.env.TWILIO_SID,
-  process.env.TWILIO_AUTHTOKEN
-);
+const client = new Twilio(process.env.TWILIO_SID, process.env.TWILIO_AUTHTOKEN);
 
 const otp = Math.floor(100000 + Math.random() * 900000);
 
