@@ -1,4 +1,4 @@
-import mongoose, { Schema, Model } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const vendorSchema = new Schema(
   {
@@ -49,6 +49,6 @@ const vendorSchema = new Schema(
 
 //TODO : Add KYC and payment details
 
-const Vendor = new Model("Vendor", vendorSchema);
+const Vendor = mongoose.model("Vendor", vendorSchema);
 
 export default Vendor;

@@ -1,4 +1,4 @@
-import mongoose, { Schema, Model } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const orderSchema = new Schema({
   orderedBy: {
@@ -34,6 +34,6 @@ const orderSchema = new Schema({
   },
 });
 
-const Order = new Model("Order", orderSchema);
+const Order = mongoose.model("Order", orderSchema);
 
 export default Order;

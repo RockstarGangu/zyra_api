@@ -147,6 +147,6 @@ export {
   listCompany,
   updateDetails,
   getVendorDetails,
-  getAllVendors,
+  // getAllVendors,
   deleteVendor,
 };

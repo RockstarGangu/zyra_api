@@ -30,5 +30,3 @@ export const verifyJWT = async (req, res, next) => {
       .json({ message: "Internal Server Error", error: error.message });
   }
 };
-
-export { verifyJWT };
