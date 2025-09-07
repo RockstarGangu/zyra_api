@@ -128,7 +128,7 @@ const itemsInCart = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    const itemsInCart = await Product.find({
+    const itemsInCart = await User.find({
       _id: { $in: user.itemsInCart },
     });
 

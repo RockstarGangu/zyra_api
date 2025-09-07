@@ -54,43 +54,46 @@ const listCompany = async (req, res) => {
 };
 
 const updateDetails = async (req, res) => {
-    try {
-        const {brandName,brandTagline, logo, aboutBrand, links} = req.body;
-        if (!brandName || !brandTagline || !logo || !aboutBrand || !links) {
-            return res
-                .status(400)
-                .json({ message: "Please provide all the required fields" });
-        }
-
-        await Vendor.findByIdAndUpdate(
-            req.user._id,
-            {
-                $set: {
-                    brandName,
-                    brandTagline,
-                    logo,
-                    aboutBrand,
-                    links,
-                },
-            },
-            {
-                new: true,
-            }
-        );
-
-        return res.status(200).json({ message: "Details updated successfully" });
-
-    } catch (error) {
-        return res
-            .status(500)
-            .json({ message: "Internal Server Error", error: error.message });
+  try {
+    const { brandName, brandTagline, logo, aboutBrand, links } = req.body;
+    if (!brandName || !brandTagline || !logo || !aboutBrand || !links) {
+      return res
+        .status(400)
+        .json({ message: "Please provide all the required fields" });
     }
-}
+
+    const vendorId = req.params.id;
+
+    await Vendor.findByIdAndUpdate(
+      vendorId,
+      {
+        $set: {
+          brandName,
+          brandTagline,
+          logo,
+          aboutBrand,
+          links,
+        },
+      },
+      {
+        new: true,
+      }
+    );
+
+    return res.status(200).json({ message: "Details updated successfully" });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
+  }
+};
 
 const getVendorDetails = async (req, res) => {
   try {
     const user = await User.findById(req.user._id);
-    const vendor = await Vendor.findById(req.user._id) && user.role === "vendor";
+    const vendor = await Vendor.findById({
+      owner: req.user._id && user.role === "vendor",
+    });
 
     if (!vendor) {
       return res.status(404).json({ message: "Vendor not found" });
@@ -120,7 +123,9 @@ const getVendorDetails = async (req, res) => {
 const deleteVendor = async (req, res) => {
   try {
     const user = await User.findById(req.user._id);
-    const vendor = await Vendor.findById(req.user._id) && user.role === "vendor";
+    const vendor = await Vendor.findById({
+      owner: req.user._id && user.role === "vendor",
+    });
 
     if (!vendor) {
       return res.status(404).json({ message: "Vendor not found" });
@@ -128,11 +133,7 @@ const deleteVendor = async (req, res) => {
 
     await Vendor.findByIdAndDelete(req.user._id);
 
-    await User.findByIdAndUpdate(
-      req.user._id,
-      { role: "user" },
-      { new: true }
-    );
+    await User.findByIdAndUpdate(req.user._id, { role: "user" }, { new: true });
 
     return res.status(200).json({ message: "Vendor deleted successfully" });
   } catch (error) {
@@ -142,10 +143,10 @@ const deleteVendor = async (req, res) => {
   }
 };
 
-export { 
-    listCompany,
-    updateDetails,
-    getVendorDetails,
-    getAllVendors,  
-    deleteVendor
+export {
+  listCompany,
+  updateDetails,
+  getVendorDetails,
+  getAllVendors,
+  deleteVendor,
 };

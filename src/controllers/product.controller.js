@@ -82,7 +82,7 @@ const listProduct = async (req, res) => {
 
 const getProductDetails = async (req, res) => {
   try {
-    const productId = req.body();
+    const productId = req.params.id;
     if (!productId) {
       return res.status(404).json({ message: "Provide product id" });
     }
@@ -142,7 +142,7 @@ const updateProductDetails = async (req, res) => {
     }
 
     await Product.findByIdAndUpdate(
-      req.user._id,
+      req.params.id,
       {
         $set: {
           productName,
@@ -176,7 +176,7 @@ const updateProductDetails = async (req, res) => {
 
 const deleteProduct = async (req, res) => {
   try {
-    const productId = req.body();
+    const productId = req.params.id;
 
     if (!productId) {
       return res.status(404).json({ message: "Provide product id" });

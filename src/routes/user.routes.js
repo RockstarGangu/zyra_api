@@ -20,13 +20,13 @@ userRouter.route("/sendotp").post(sendOtp);
 userRouter.route("/verifyotp").post(verifyOtp);
 userRouter.route("/login").post(login);
 userRouter.route("/logout").post(verifyJWT, logout);
-userRouter.route("/addToLikedProducts").post(verifyJWT, addToLikedProducts);
+userRouter.route("/addToLikedProducts").patch(verifyJWT, addToLikedProducts);
 userRouter
-  .route("/removeFromLikedProducts")
-  .post(verifyJWT, removeFromLikedProducts);
-userRouter.route("/itemsInCart").post(verifyJWT, itemsInCart);
-userRouter.route("/addToCart").post(verifyJWT, addToCart);
-userRouter.route("/removeFromCart").post(verifyJWT, removeFromCart);
-userRouter.route("/getAllLikedProducts").post(verifyJWT, getAllLikedProducts);
+  .route("/removeFromLikedProducts/:id")
+  .patch(verifyJWT, removeFromLikedProducts);
+userRouter.route("/itemsInCart").get(verifyJWT, itemsInCart);
+userRouter.route("/addToCart").patch(verifyJWT, addToCart);
+userRouter.route("/removeFromCart").patch(verifyJWT, removeFromCart);
+userRouter.route("/getAllLikedProducts").get(verifyJWT, getAllLikedProducts);
 
 export default userRouter;

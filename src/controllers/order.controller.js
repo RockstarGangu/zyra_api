@@ -31,7 +31,7 @@ const makeOrder = async (req, res) => {
 
 const getOrderDetails = async (req, res) => {
   try {
-    const orderId = req.body();
+    const orderId = req.params.id;
     if (!orderId) {
       return res.status(404).json({ message: "Provide order id" });
     }
@@ -47,7 +47,7 @@ const getOrderDetails = async (req, res) => {
 
 const updateOrderDetails = async (req, res) => {
   try {
-    const { orderId } = req.body();
+    const orderId  = req.params.id;
 
     if (!orderId) {
       return res.status(404).json({ message: "Provide order id" });
@@ -83,7 +83,7 @@ const updateOrderDetails = async (req, res) => {
 
 const cancelOrder = async (req, res) => {
   try {
-    const orderId = req.body();
+    const orderId = req.params.id;
     if (!orderId) {
       return res.status(404).json({ message: "Provide order id" });
     }

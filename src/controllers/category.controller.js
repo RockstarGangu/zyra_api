@@ -3,7 +3,7 @@ import Category from "../models/category.model.js";
 const createCategory = async (req, res) => {
   try {
     const { name } = req.body;
-    const productId = req.body();
+    const productId = req.params.id;
     if (!name || !productId) {
       return res
         .status(400)

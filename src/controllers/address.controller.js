@@ -79,7 +79,7 @@ const updateAddress = async (req, res) => {
 
 const deleteAddress = async (req, res) => {
   try {
-    const address = await Address.findByIdAndDelete(req.body());
+    const address = await Address.findByIdAndDelete(req.params.id);
     if (!address) {
       return res.status(404).json({ message: "Address not found" });
     }

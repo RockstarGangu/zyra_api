@@ -81,7 +81,7 @@ const deleteReview = async (req, res) => {
 
 const getAllReviewsByProduct = async (req, res) => {
   try {
-    const productId = req.body();
+    const productId = req.params.id;
     if (!productId) {
       return res.status(404).json({ message: "Provide product id" });
     }
