@@ -1,7 +1,5 @@
 import User from "../models/user.model.js";
 import Product from "../models/product.model.js";
-import Review from "../models/review.model.js";
-import Order from "../models/order.model.js";
 
 const client = require("twilio")(
   process.env.TWILIO_SID,
@@ -216,7 +214,7 @@ const addToLikedProducts = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    const productId = req.body;
+    const productId = req.params.id;
 
     if (!productId) {
       return res.status(404).json({ message: "Product not found" });
@@ -248,7 +246,7 @@ const removeFromLikedProducts = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    const productId = req.body;
+    const productId = req.params.id;
 
     if (!productId) {
       return res.status(404).json({ message: "Product not found" });
@@ -282,7 +280,8 @@ const addToCart = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    const { productId, quantity } = req.body;
+    const productId = req.params.id;
+    const { quantity } = req.body;
 
     if (!productId) {
       return res.status(404).json({ message: "Product not found" });
@@ -314,7 +313,7 @@ const removeFromCart = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    const productId = req.body;
+    const productId = req.params.id;
 
     if (!productId) {
       return res.status(404).json({ message: "Product not found" });
