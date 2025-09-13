@@ -2,6 +2,7 @@ import User from "../models/user.model.js";
 import Product from "../models/product.model.js";
 import Twilio from "twilio";
 
+
 const client = new Twilio(process.env.TWILIO_SID, process.env.TWILIO_AUTHTOKEN);
 
 const otp = Math.floor(100000 + Math.random() * 900000);
@@ -57,7 +58,7 @@ const sendOtp = async (req, res) => {
 
 const verifyOtp = async (req, res) => {
   try {
-    const { mobileNumber, sentOtp } = req.body();
+    const { mobileNumber, sentOtp, role } = req.body();
 
     if (!sentOtp) {
       return res.status(400).json({ message: "OTP is required" });
@@ -70,6 +71,7 @@ const verifyOtp = async (req, res) => {
     const newUser = await User.create({
       mobileNumber,
       isMobileVerified: true,
+      role,
     });
 
     const { accessToken, refreshToken } = await generateAccessAndRefereshTokens(

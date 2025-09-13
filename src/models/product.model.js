@@ -22,11 +22,11 @@ const productSchema = new Schema(
         required: true,
       },
     ],
-    sku:{
-        type: String,
-        required: true,
-        unique: true,
-        trim: true
+    sku: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
     },
     categories: [
       {
@@ -91,6 +91,8 @@ const productSchema = new Schema(
   },
   { timestamps: true }
 );
+
+productSchema.index({ productName: "text", productDescription: "text" });
 
 const Product = mongoose.model("Product", productSchema);
 

@@ -1,5 +1,5 @@
 import Product from "../models/product.model.js";
-import User from "../models/user.model.js";
+import APIFeatures from "../utils/apiFeatures.js";
 
 const listProduct = async (req, res) => {
   try {
@@ -194,4 +194,35 @@ const deleteProduct = async (req, res) => {
 
 //TODO : Add filtering,sorting,pagination and search functionality
 
-export { listProduct, getProductDetails, updateProductDetails, deleteProduct };
+const getAllProducts = async (req, res) => {
+  try {
+    const features = new APIFeatures(Product.find(), req.query)
+      .search()
+      .filter()
+      .sort()
+      .paginate();
+
+    const products = await features.query;
+
+    const total = await Product.countDocuments(features.query.getFilter());
+
+    return res.status(200).json({
+      data: products,
+      total,
+      ...features.paginationResult,
+      pages: Math.ceil(total / features.paginationResult.limit),
+    });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
+  }
+};
+
+export {
+  listProduct,
+  getProductDetails,
+  updateProductDetails,
+  deleteProduct,
+  getAllProducts,
+};
